@@ -1,0 +1,54 @@
+.form-group {
+    position: relative;
+    margin-bottom: 30px;
+
+  }
+  
+  .form-control-placeholder {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    padding: 7px 0 0 2px;
+    transition: all 200ms;
+    opacity: 0.5;
+  }
+  
+  .form-control:focus + .form-control-placeholder,
+  .form-control:valid + .form-control-placeholder {
+    font-size: 85%;
+    color: #3bb78f;
+    font-weight: bold;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  .example-full-width {
+    width: 80%;
+  }
+  .status-done{
+    text-transform: uppercase;
+    color: green !important;
+  }
+  
+  .status-progress{
+    text-transform: uppercase;
+    color: cornflowerblue !important;
+  }
+  
+  .status-backlog{
+    text-transform: uppercase;
+    color: red !important;
+  }
+  
+  .status-testing{
+    text-transform: uppercase;
+    color: darkorchid;
+  }
+
+  .back{
+    position: absolute;
+    right: 5%;
+  }
+  .delete{
+    position: absolute;
+    right: 24%;
+  }

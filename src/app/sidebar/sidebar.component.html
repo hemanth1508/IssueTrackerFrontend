@@ -1,0 +1,76 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0 text-center">
+                <div class="alert alert-danger" style="width: 90%; margin:5px 5% 5px 5%;" role="alert" *ngIf="noNotify">
+                    Notifications Box empty!
+                </div>
+                <div class="text-center" *ngFor="let notify of notifications" class="hover-shadow">
+                    <div class="alert alert-success" role="alert" style="width: 90%; margin:5px 5% 5px 5%;">
+                        <a routerLink="description/{{notify.issueId}}" data-dismiss="modal">
+                            <span><b style="color: green;">{{notify.message}}</b></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Close</b></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of modal -->
+
+<nav class="navbar navbar-default navbar-expand-md fixed-top customNav">
+    <a class="navbar-brand" routerLink="home"> Issue Tracker Tool</a>
+    <button class="navbar-toggler btn btn-outline-light" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+
+    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+            <li>
+                <button class="btn btn-outline-light customBtn rounded-pill" [routerLink]="['home']">
+                    <fa-icon [icon]="faHome"></fa-icon> Home
+                </button>
+            </li>
+            <li>
+                <button class="btn customBtn rounded-pill" [routerLink]="['description/add']">
+                    <!-- [class.activated]="currentUrl.split('/')[1] == 'description'" -->
+                    <fa-icon [icon]="faClipboardList"></fa-icon> Report
+                </button>
+            </li>
+
+            <li>
+                <button class="btn customBtn rounded-pill" (click)="clearNotify()" data-toggle="modal"
+                    data-target="#exampleModal">
+                    <!-- <mat-icon [matBadge]="count" matBadgeColor="accent">notifications_active</mat-icon> -->
+                    <fa-icon [icon]="faBell" size="1x"></fa-icon><span>
+                        Notification</span><span class="badge badge-light" style="color: red;">{{count}}</span>
+                </button>
+            </li>
+
+            <li>
+                <!-- <button class="btn customBtn rounded-pill" style="cursor: pointer;" (click)="logout()">
+                    Logout <fa-icon [icon]="faPowerOff"></fa-icon>
+                </button> -->
+            </li>
+        </ul>
+        <!-- <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill"
+            style="margin-right: 20px;border: none; color: white;" [routerLink]="['/signup']">
+            Signup <fa-icon [icon]="faBars"></fa-icon>
+        </button> -->
+    </div>
+</nav>

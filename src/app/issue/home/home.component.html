@@ -1,0 +1,149 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <br><br>
+            <h6 style="display: inline;">Welcome <b>{{userInfo.firstName | titlecase}}
+                    {{userInfo.lastName | titlecase}}</b></h6>
+            <button class="btn btn-outline-info float-right rounded-pill" (click)="logout()"><b>Logout</b></button>
+            <br><br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-10">
+            <input type="text" title="Press enter to search" class="form-control shadow"
+                placeholder="Search Title or Description" (change)="search($event)" [(ngModel)]="searchText">
+            <br>
+        </div>
+        <div class="col-2">
+            <button *ngIf="cross" class="btn btn-primary" (click)="ngOnInit()">close</button>
+            <br><br>
+        </div>
+    </div>
+    <div class="text-center" *ngIf='!issues && !noIssue'>
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="row" *ngIf='noIssue'>
+        <div class="col-12">
+            <br><br>
+            <h2 class="text-center"> No Issue Found !</h2>
+            <hr>
+            <p class="text-center"> Click on Report to report an Issue</p>
+        </div>
+    </div>
+
+    <div class="row text-center" *ngIf='issues'>
+        <div class="col-12 shadow" style="border-radius: 15px; border: 1px lightgrey solid;">
+            <br>
+            <h3 style="color: #3bb78f;">All Issues</h3>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <caption>All Issues Listed Above</caption>
+                    <thead class="head shadow-sm">
+                        <tr>
+                            <th title="Sort by Title" (click)="sortBy('title')">Title</th>
+                            <th title="Sort by Reporter" (click)="sortBy('reporter')">Reporter</th>
+                            <th title="Sort by Status" (click)="sortBy('status')">Status</th>
+                            <th title="Sort by Date" (click)="sortBy('date')">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor='let issue of issues; let index = index'>
+                        <tr title="Click to view description" class="" (click)="displayDescription(issue)"
+                            style="cursor: pointer;">
+                            <td>{{issue.title | titlecase}}</td>
+                            <td>{{issue.reporter[0].name | titlecase}}</td>
+                            <td>
+                                <span *ngIf="issue.status == 'done'" style="font-size: small;"
+                                    class="status-done"><b>{{issue.status}}</b> </span>
+                                <span *ngIf="issue.status == 'in-progress'" style="font-size: small;"
+                                    class="status-progress"><b>{{issue.status}}</b>
+                                </span>
+                                <span *ngIf="issue.status == 'backlog'" style="font-size: small;"
+                                    class="status-backlog"><b>{{issue.status}}</b>
+                                </span>
+                                <span *ngIf="issue.status == 'in-test'" style="font-size: small;"
+                                    class="status-testing"><b>{{issue.status}}</b>
+                                </span>
+                            </td>
+                            <td>{{issue.createdOn | date}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <mat-paginator class="shadow page rounded" [length]="length" [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="pageIndex" (page)=" getServerData($event)">
+            </mat-paginator>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+        </div>
+    </div>
+
+
+    <ng-template #modalContent id='modal' let-close="close">
+
+        <div class="modal-header head">
+            <h5 class="modal-title ">
+                <b title="issue title">{{ modalData?.issue.title |titlecase }} </b> |
+                <span title="status" class="text-muted"> {{modalData?.issue.status}}</span>
+            </h5>
+            <button title="close" type="button" class="close" style="color: white;" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body bg-light">
+            <div class="alert alert-light shadow" role="alert">
+                <b class="inline-block">Image : </b>
+                <hr>
+                <img class="shadow" title="{{modalData?.issue.title}} image" src="{{modalData?.issue.screenshot}}"
+                    alt="Image" width="50%" height="auto"
+                    style="object-fit:cover;margin-left: 25%; border-radius: 15px;">
+            </div>
+            <div class="alert alert-light shadow" role="alert">
+                <b class="inline-block">Description : </b>
+                <hr>
+                <p innerHTML="{{modalData?.issue.description}}"></p>
+            </div>
+            <div class="alert alert-light shadow" role="alert">
+                <b class="inline-block">Assignee : </b>
+                <hr>
+                <ul class="list-group list-group-horizontal">
+                    <li title="assignee" *ngFor="let assignee of modalData?.issue.assignee"
+                        class="list-group-item shadow rounded-pill">
+                        <b>{{ assignee.name }}</b>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="alert alert-light shadow" role="alert">
+                <b class="inline-block">Watcher : </b>
+                <hr>
+                <ul class="list-group list-group-horizontal">
+                    <li title="watcher" *ngFor="let watcher of modalData?.issue.watching"
+                        class="list-group-item shadow rounded-pill">
+                        <b>{{ watcher.name }}</b>
+                    </li>
+                </ul>
+                <p *ngIf="modalData?.issue.watching.length ==0">No watchers for this issue!</p>
+            </div>
+        </div>
+        <div class="modal-footer page">
+            <b title="created date" style="position:absolute; left: 20px;">
+                {{modalData?.issue.createdOn | date: "short" }}</b>
+            <button title="close" type="button" class=" btn btn-outline-info colorbutton"
+                (click)="close()"><b>Close</b></button>
+            <a class="btn btn-success shadow" title="Edit" (click)="close()"
+                routerLink="/description/{{modalData?.issue.issueId}}">
+                Edit</a>
+        </div>
+
+    </ng-template>
+</div>

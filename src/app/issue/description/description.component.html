@@ -1,0 +1,213 @@
+<div class="container">
+    <!-- <div class="row">
+        <div class="col-12">
+            <br><br>
+            <p></p>
+            <br>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <br><br>
+            <h6 style="display: inline;">Welcome <b>{{userInfo.firstName | titlecase}}
+                    {{userInfo.lastName | titlecase}}</b></h6>
+            <!-- <button class="btn btn-outline-info float-right rounded-pill" (click)="logout()">Logout</button> -->
+            <br><br>
+        </div>
+    </div>
+
+</div>
+<div class="container shadow" style="border: 1px solid lightgrey; border-radius: 15px;">
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <h2 style="color: #3bb78f; display: inline;">Report Issue</h2>
+            <button class="btn btn-danger delete shadow" title="delete issue" *ngIf="editMode && userId == reporterId "
+                data-toggle="modal" data-target="#exampleMod" role="button" aria-expanded="false"
+                aria-controls="collapseExample">
+                <span>delete <fa-icon [icon]="faTrashAlt" size="1x"></fa-icon></span>
+            </button>
+            <div class="modal fade" id="exampleMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Issue</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="color: red;"> Do you really want to permanently delete this issue?</h6>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Delete
+                                Issue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button title="back to previous page" class="btn btn-success back shadow" (click)="goBack()">
+                <fa-icon [icon]="faCaretSquareLeft" size="1x"></fa-icon> Back
+            </button>
+            <hr><br>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!editMode || userId == reporterId || assigneeArray.includes(userId)">
+        <div class="col-12 col-md-6">
+            <br>
+            <div class="form-group">
+                <input type="text" id="Title" [(ngModel)]="title" class="form-control shadow" required autofocus>
+                <label class="form-control-placeholder" for="Title">title</label>
+            </div>
+            <br>
+            <div class="form-group">
+                <select [(ngModel)]="status" name="status" class="form-control shadow" id="status" required>
+                    <option value="backlog" class="status-backlog">Backlog</option>
+                    <option value="in-progress" class="status-progress">In Progress</option>
+                    <option value="in-test" class="status-testing">In Test</option>
+                    <option value="done" class="status-done">Done</option>
+                </select>
+                <label class="form-control-placeholder" for="status">status</label>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <h5 style="color: #3bb78f;">screenshot</h5>
+            <br>
+            <div style="text-align: center;">
+                <p *ngIf="!imageUrl && !selectFile">No Image selected yet.</p>
+            </div>
+            <img class="mx-auto d-block shadow" *ngIf="imageUrl || selectFile" [src]="imageUrl" width="50%" alt="">
+            <hr>
+            <div *ngIf="warning" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input style="display:none" type="file" (change)=" onFileSelected($event)" #fileInput>
+            <button class="btn btn-primary shadow float-right" (click)="fileInput.click()">Add Image <fa-icon
+                    [icon]="faImage" size="1x">
+                </fa-icon></button>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-12">
+            <h5 style="color: #3bb78f;">Description</h5>
+            <ejs-richtexteditor class="shadow rounded" [toolbarSettings]='tools' placeholder="Issue Description"
+                [(ngModel)]="editorContent">
+            </ejs-richtexteditor>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="editMode && userId !== reporterId && !assigneeArray.includes(userId)">
+        <div class="col-6 text-center">
+            <br>
+            <h5 class="text-muted"><span style="color: #3bb78f;">Title: </span>{{title}}</h5>
+            <br>
+        </div>
+        <div class="col-6 text-center">
+            <br>
+            <h5 style="color: #3bb78f;">Status:
+                <span *ngIf="status == 'done'" class="status-done">{{status}} </span>
+                <span *ngIf="status == 'in-progress'" class="status-progress">{{status}} </span>
+                <span *ngIf="status == 'backlog'" class="status-backlog">{{status}} </span>
+                <span *ngIf="status == 'in-test'" class="status-testing">{{status}} </span>
+            </h5>
+            <br>
+        </div>
+        <br>
+        <div class="col-12 text-center">
+            <h5 style="color: #3bb78f;">Screenshot</h5>
+            <hr>
+            <p *ngIf="!imageUrl && !selectFile">image not yet uploaded</p>
+            <img class="mx-auto d-block shadow" style="border-radius: 15px;" *ngIf="imageUrl || selectFile"
+                [src]="imageUrl" width="50%" alt="">
+            <hr>
+        </div>
+        <br>
+        <div class="col-12">
+            <br>
+            <h5 style="color: #3bb78f;">Description</h5>
+
+            <p [innerHTML]="editorContent"></p>
+            <br>
+        </div>
+        <hr>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h5 style="color: #3bb78f;">Add Assignee</h5>
+            <mat-form-field class="example-full-width text-capitalize">
+                <mat-select placeholder="Assignee" [formControl]="assignee" multiple>
+                    <mat-option class="text-capitalize text-success" *ngFor="let user of users" [value]="user">
+                        {{user.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success shadow" title="save this issue"
+                *ngIf="!uploadStautus && !warning && assigneeArray.includes(userId) || userId == reporterId  || !editMode"
+                (click)="save()">Save <fa-icon [icon]="faArchive" size="1x"></fa-icon></button>
+            <button title="add assignee to this issue" class="btn btn-success shadow"
+                *ngIf="editMode && userId !== reporterId && !assigneeArray.includes(userId)" (click)="addAssignee()">Add
+                Assignee <fa-icon [icon]="faPlus" size="1x"></fa-icon></button>
+            <button class="btn btn-info shadow"
+                *ngIf="userId !== reporterId && !watchee && !assigneeArray.includes(userId)" (click)="addWatchee()"
+                title="watch this issue" style="color: white; margin: 20px;">Watch <fa-icon [icon]="faEye" size="1x">
+                </fa-icon></button>
+            <!-- <mat-progress-spinner *ngIf="uploadStautus" class="example-margin" color="primary" mode="determinate"
+              diameter=40 [value]="progress">
+            </mat-progress-spinner> -->
+            <div class="alert alert-warning" *ngIf="uploadStautus" role="alert">
+                <p><b>Issue is uploading...</b></p>
+                <p>upload progress: {{progress-5}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <h5 style="color: #3bb78f;">Comments</h5>
+            <hr>
+            <div *ngFor="let comments of commentsArray">
+                <b class="text-capitalize" title="comment title">{{ comments.name }}</b>
+                <p title="comment">{{ comments.comment }}</p>
+                <hr>
+            </div>
+            <div>
+                <textarea class="form-control shadow" style="width: 95%;" title="write your comment here"
+                    placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
+                <br>
+                <button class="btn btn-primary shadow" title="submit comment" (click)="postComment()">Comment <fa-icon
+                        [icon]="faComment" size="1x"></fa-icon></button>
+                <br><br>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="watchers && watchers.length">
+            <h5 style="color: #3bb78f;">Watchers</h5>
+            <br>
+            <h6 class="inline" title="watcher" *ngFor="let watcher of watchers">
+                {{watcher.name}}
+            </h6>
+            <br><br>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <br><br>
+        </div>
+    </div>
+</div>

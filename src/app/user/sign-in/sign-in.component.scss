@@ -1,0 +1,77 @@
+.form-group {
+    position: relative;
+    margin-bottom: 30px;
+
+  }
+  
+  .form-control-placeholder {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    padding: 7px 0 0 2px;
+    transition: all 200ms;
+    opacity: 0.5;
+  }
+  
+  .form-control:focus + .form-control-placeholder,
+  .form-control:valid + .form-control-placeholder {
+    font-size: 85%;
+    color: #3bb78f;
+    font-weight: bold;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  
+  .login{
+      position: absolute;
+      right: 10%;
+      color :#3bb78f;
+      border: #3bb78f 1px solid;
+  }
+  .login:hover{
+    color:white;
+    background: #3bb78f;
+  }
+  .forgot{
+      position: absolute;
+      margin-top: 5px;
+      left: 10%;
+      cursor: pointer;
+      text-decoration: none;
+      color: #0bab64;
+  }
+  .fb{
+      width: 90%;
+      margin: 8px 0 8px 0;
+      background-color:#3b5998;
+      color: white;
+  }
+  .google{
+      width: 90%;
+      background-color: #4c8bf5;
+      color: white;
+      border: lightgray 1px solid;
+      margin: 8px 0 8px 0;
+  }
+  .normal{
+      width: 90%;
+      background-color: lightgrey;
+      color: black;
+      border: lightgrey 1px solid;
+      margin: 8px 0 8px 0;
+  }
+
+  .animate{
+      transition: all 0.2s ease-in-out;
+  }
+  .animate:hover{
+      transform: translateY(2px);
+  }
+
+  h5{
+      color: #3bb78f;
+  }
+
+  div{
+      transition: all 0.2s ease-in-out;
+  }

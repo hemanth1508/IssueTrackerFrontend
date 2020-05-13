@@ -1,0 +1,93 @@
+.head{
+    background-color: #08e1ae;
+background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
+color: white;
+}
+
+th{
+    cursor: pointer;
+}
+.page{
+    background-color: #08e1ae;
+background-image: linear-gradient(315deg,#98de5b  0%,  #08e1ae 74%);
+color: white;
+}
+.colorbutton{
+    color : white;
+    border: white 1px solid;
+  }
+  .colorbutton:hover{
+    color: green;
+    background: white;
+    border: green 1px solid;
+  }
+
+  ul{
+      background: transparent;
+  }
+  li{
+    background-color: transparent;
+    color: green;
+    margin: 15px;
+    border: green 1px solid;
+  }
+
+  .alert{
+      border-radius: 15px;
+      border: lightgrey 1px solid;
+  }
+
+//   tbody tr{
+//       background: #d0f0c0;
+//       color: green;
+//       border: solid 2px green;
+//   }
+
+  .animate{
+      transition: ease-in-out all .2s;
+  }
+  .animate:hover{
+      transform: translateY(2px);
+  }
+
+
+  .status-done{
+    text-transform: uppercase;
+    color: green !important;
+  }
+  
+  .status-progress{
+    text-transform: uppercase;
+    color: cornflowerblue !important;
+  }
+  
+  .status-backlog{
+    text-transform: uppercase;
+    color: red !important;
+  }
+  
+  .status-testing{
+    text-transform: uppercase;
+    color: darkorchid;
+  }
+
+  .customNav{
+    background-color: #3bb78f;
+    background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
+}
+.a{
+    text-decoration: none;
+    color: white;
+    margin: 0 20px 0 20px;
+}
+.customBtn{
+    color: white;
+    border: none;
+    margin: 0 10px 0 10px;
+    font-weight: 500;
+}
+.customBtn:hover{
+    color: #3bb78f;
+    background: white;
+}
+
