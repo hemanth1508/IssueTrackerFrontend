@@ -14,7 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({ preventDuplicates: true, timeOut: 4000 }),
     RouterModule.forChild([
       { path: 'forgot-password', component: ForgotPasswordComponent },
       { path: 'change-password/:userId', component: ChangePasswordComponent }

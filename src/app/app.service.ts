@@ -21,24 +21,6 @@ export class AppService {
   constructor(public http: HttpClient) { }
 
 
-  // get all countries
-  // public getAllCountry() {
-
-  //   let response = this.http.get(`https://restcountries.eu/rest/v2/all`);
-
-  //   return response;
-
-  // }
-
-  // // get country form code
-  // public getCountry(code) {
-
-  //   let response = this.http.get(`https://restcountries.eu/rest/v2/callingcode/${code}`);
-
-  //   return response;
-
-  // }
-
 
   //get userinfo from localstoreage
   public getUserInfoFromLocalstorage = () => {
@@ -57,8 +39,7 @@ export class AppService {
 
   //get all users
   public getAllUsers = () => {
-    this.allUsers = this.http.get(`${this.url}/api/v1/users/view/all?authToken=${Cookie.get('authtoken')}`);
-    return this.allUsers;
+    return this.http.get(`${this.url}/api/v1/users/view/all?authToken=${Cookie.get('authtoken')}`);
   }
 
   //get users details
@@ -155,8 +136,9 @@ export class AppService {
 
     // Creating a user obj for repoter info
     let reporter = [];
-    let name = `${this.getUserInfoFromLocalstorage().firstName} ${this.getUserInfoFromLocalstorage().lastName}`
-    let userId = this.getUserInfoFromLocalstorage().userId
+    let userDetails = this.getUserInfoFromLocalstorage().userDetails;
+    let name = `${userDetails.firstName} ${userDetails.lastName}`
+    let userId = userDetails.userId
     let reporterObj = {
       name: name,
       userId: userId
@@ -252,8 +234,9 @@ export class AppService {
 
     // Creating a user obj for repoter info
     let reporter = [];
-    let name = `${this.getUserInfoFromLocalstorage().firstName} ${this.getUserInfoFromLocalstorage().lastName}`
-    let userId = this.getUserInfoFromLocalstorage().userId
+    let userDetails = this.getUserInfoFromLocalstorage().userDetails;
+    let name = `${userDetails.firstName} ${userDetails.lastName}`
+    let userId = userDetails.userId
     let reporterObj = {
       name: name,
       userId: userId,
@@ -278,8 +261,9 @@ export class AppService {
 
     // Creating a user obj for repoter info
     let reporter = [];
-    let name = `${this.getUserInfoFromLocalstorage().firstName} ${this.getUserInfoFromLocalstorage().lastName}`
-    let userId = this.getUserInfoFromLocalstorage().userId
+    let userDetails = this.getUserInfoFromLocalstorage().userDetails;
+    let name = `${userDetails.firstName} ${userDetails.lastName}`
+    let userId = userDetails.userId
     let reporterObj = {
       name: name,
       userId: userId,

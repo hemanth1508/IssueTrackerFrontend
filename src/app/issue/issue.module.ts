@@ -13,7 +13,6 @@ import { DescriptionComponent } from './description/description.component';
 import { Err500Component } from './err500/err500.component';
 import { RouteGuardService } from './route-guard.service';
 import { MatSelectModule } from '@angular/material/select';
-// import { SidebarComponent } from '../sidebar/sidebar.component';
 
 
 
@@ -21,15 +20,14 @@ import { MatSelectModule } from '@angular/material/select';
   declarations: [
     HomeComponent,
     DescriptionComponent,
-    Err500Component,
-    // SidebarComponent
+    Err500Component
   ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({ preventDuplicates: true, timeOut: 4000 }),
     HttpClientModule,
     MatPaginatorModule,
     FontAwesomeModule,
@@ -50,6 +48,10 @@ import { MatSelectModule } from '@angular/material/select';
         path: '500',
         component: Err500Component
       },
+      {
+        path: '**',
+        redirectTo: 'sign-in'
+      }
     ])
   ],
   exports: [],

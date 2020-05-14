@@ -41,9 +41,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   public isLogged = () => {
-    //console.log('userInfo', this.appService.getUserInfoFromLocalstorage().userDetails)
     if (this.appService.getUserInfoFromLocalstorage() && Cookie.get('authtoken') === this.appService.getUserInfoFromLocalstorage().authToken) {
       this.router.navigate(['/home']);
+    } else {
+      Cookie.deleteAll();
+      this.appService.deleteUserInfoInLocalStorage();
     }
   }//end isLogged  
 
@@ -72,8 +74,6 @@ export class SignInComponent implements OnInit, OnDestroy {
           this.appService.socialSignupFunction(data)
             .subscribe((apiResponse) => {
               if (apiResponse.status === 200) {
-                //let card = document.getElementById('card');
-                //card.classList.add('anime')
                 Cookie.set('authtoken', apiResponse.data.authToken);
                 Cookie.set('userId', apiResponse.data.userDetails.userId);
                 Cookie.set('userName', apiResponse.data.userDetails.firstName + ' ' + apiResponse.data.userDetails.lastName);

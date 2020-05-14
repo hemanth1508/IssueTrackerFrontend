@@ -94,6 +94,7 @@ export class DescriptionComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.isLoggedOut();
 
     // this.checkStatus();
@@ -309,7 +310,7 @@ export class DescriptionComponent implements OnInit {
       } else {
         //console.log(this.assignee.value.name);
         let data = {
-          title: this.title,
+          title: this.title.toLowerCase(),
           status: this.status,
           description: this.editorContent,
           assignee: this.assignee.value,
@@ -358,7 +359,7 @@ export class DescriptionComponent implements OnInit {
           assigneeArray.push(obj);
         }
         let data = {
-          title: this.title,
+          title: this.title.toLowerCase(),
           status: this.status,
           description: this.editorContent,
           assignee: assigneeArray,

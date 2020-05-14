@@ -181,9 +181,11 @@
             <h5 style="color: #3bb78f;">Comments</h5>
             <hr>
             <div *ngFor="let comments of commentsArray">
-                <b class="text-capitalize" title="comment title">{{ comments.name }}</b>
-                <p title="comment">{{ comments.comment }}</p>
-                <hr>
+                <div class="alert alert-success shadow" style="width: 90%;" role="alert">
+                    <b class="text-capitalize" title="comment title">{{ comments.name }}</b>
+                    <hr>
+                    <p title="comment">{{ comments.comment }}</p>
+                </div>
             </div>
             <div>
                 <textarea class="form-control shadow" style="width: 95%;" title="write your comment here"
@@ -196,10 +198,19 @@
         </div>
         <div class="col-12" *ngIf="watchers && watchers.length">
             <h5 style="color: #3bb78f;">Watchers</h5>
-            <br>
-            <h6 class="inline" title="watcher" *ngFor="let watcher of watchers">
+            <hr>
+            <!-- <div class="inline" title="watcher" *ngFor="let watcher of watchers">
                 {{watcher.name}}
-            </h6>
+            </div> -->
+            <ul class="list-group list-group-horizontal" *ngIf="watchers && watchers.length">
+                <li title="watcher" *ngFor="let watcher of watchers"
+                    class="list-group-item shadow listyle rounded-pill">
+                    <b>{{ watcher.name }}</b>
+                </li>
+            </ul>
+            <!-- <div style="text-align: center;" class="text-muted">
+                <h6>No watchers to this issue.</h6>
+            </div> -->
             <br><br>
         </div>
     </div>

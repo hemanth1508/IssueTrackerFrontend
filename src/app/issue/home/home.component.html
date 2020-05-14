@@ -37,17 +37,28 @@
 
     <div class="row text-center" *ngIf='issues'>
         <div class="col-12 shadow" style="border-radius: 15px; border: 1px lightgrey solid;">
-            <br>
-            <h3 style="color: #3bb78f;">All Issues</h3>
+            <h3 style="color: #3bb78f;margin: 10px;">All Issues</h3>
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
                     <caption>All Issues Listed Above</caption>
                     <thead class="head shadow-sm">
                         <tr>
-                            <th title="Sort by Title" (click)="sortBy('title')">Title</th>
-                            <th title="Sort by Reporter" (click)="sortBy('reporter')">Reporter</th>
-                            <th title="Sort by Status" (click)="sortBy('status')">Status</th>
-                            <th title="Sort by Date" (click)="sortBy('date')">Date</th>
+                            <th title="Sort by Title" (click)="sortBy('title')">Title <fa-icon *ngIf="!this.sortArrow1"
+                                    [icon]="faCaretUp" size="1x"></fa-icon>
+                                <fa-icon *ngIf="this.sortArrow1" [icon]="faCaretDown" size="1x"></fa-icon>
+                            </th>
+                            <th title="Sort by Reporter" (click)="sortBy('reporter')">Reporter <fa-icon
+                                    *ngIf="!this.sortArrow2" [icon]="faCaretUp" size="1x"></fa-icon>
+                                <fa-icon *ngIf="this.sortArrow2" [icon]="faCaretDown" size="1x"></fa-icon>
+                            </th>
+                            <th title="Sort by Status" (click)="sortBy('status')">Status <fa-icon
+                                    *ngIf="!this.sortArrow3" [icon]="faCaretUp" size="1x"></fa-icon>
+                                <fa-icon [icon]="faCaretDown" *ngIf="this.sortArrow3" size="1x"></fa-icon>
+                            </th>
+                            <th title="Sort by Date" (click)="sortBy('date')">Date <fa-icon *ngIf="!this.sortArrow4"
+                                    [icon]="faCaretUp" size="1x"></fa-icon>
+                                <fa-icon [icon]="faCaretDown" *ngIf="this.sortArrow4" size="1x"></fa-icon>
+                            </th>
                         </tr>
                     </thead>
                     <tbody *ngFor='let issue of issues; let index = index'>
@@ -74,7 +85,6 @@
                     </tbody>
                 </table>
             </div>
-            <br>
             <mat-paginator class="shadow page rounded" [length]="length" [pageSize]="pageSize"
                 [pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="pageIndex" (page)=" getServerData($event)">
             </mat-paginator>

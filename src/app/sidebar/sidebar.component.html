@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-default navbar-expand-md fixed-top customNav">
     <a class="navbar-brand" routerLink="home"> Issue Tracker Tool</a>
-    <button class="navbar-toggler btn btn-outline-light" type="button" data-toggle="collapse"
+    <button class="navbar-toggler btn btn-outline-light bar" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
         <fa-icon [icon]="faBars"></fa-icon>
@@ -47,16 +47,15 @@
                 </button>
             </li>
             <li>
-                <button class="btn customBtn rounded-pill" [routerLink]="['description/add']">
+                <button class="btn btn-outline-light customBtn rounded-pill" [routerLink]="['description/add']">
                     <!-- [class.activated]="currentUrl.split('/')[1] == 'description'" -->
                     <fa-icon [icon]="faClipboardList"></fa-icon> Report
                 </button>
             </li>
 
             <li>
-                <button class="btn customBtn rounded-pill" (click)="clearNotify()" data-toggle="modal"
+                <button class="btn btn-outline-light customBtn rounded-pill" (click)="clearNotify()" data-toggle="modal"
                     data-target="#exampleModal">
-                    <!-- <mat-icon [matBadge]="count" matBadgeColor="accent">notifications_active</mat-icon> -->
                     <fa-icon [icon]="faBell" size="1x"></fa-icon><span>
                         Notification</span><span class="badge badge-light" style="color: red;">{{count}}</span>
                 </button>
@@ -68,9 +67,5 @@
                 </button> -->
             </li>
         </ul>
-        <!-- <button class="btn btn-outline-info my-2 my-sm-0 rounded-pill"
-            style="margin-right: 20px;border: none; color: white;" [routerLink]="['/signup']">
-            Signup <fa-icon [icon]="faBars"></fa-icon>
-        </button> -->
     </div>
 </nav>

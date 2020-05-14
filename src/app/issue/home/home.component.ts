@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { PageEvent } from '@angular/material/paginator';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faBars, faBell, faHome, faClipboardList, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faHome, faClipboardList, faPowerOff, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   userInfo: any;
   public time;
 
+  public sortArrow1: boolean = false;
+  public sortArrow2: boolean = false;
+  public sortArrow3: boolean = false;
+  public sortArrow4: boolean = false;
   // notifications: any[];
   // count: number = null;
   // noNotify: boolean = false;
@@ -48,6 +52,8 @@ export class HomeComponent implements OnInit {
   faClipboardList = faClipboardList;
   faHome = faHome;
   faPowerOff = faPowerOff;
+  faCaretUp = faCaretUp;
+  faCaretDown = faCaretDown;
 
   constructor(public socket: SocketService,
     public toastr: ToastrService,
@@ -130,6 +136,7 @@ export class HomeComponent implements OnInit {
           Cookie.delete('authtoken');
           Cookie.delete('userId');
           Cookie.delete('userName');
+          Cookie.deleteAll();
           this.appService.deleteUserInfoInLocalStorage();
           this.toastr.success(apiResponse.message);
           setTimeout(() => {
@@ -199,7 +206,7 @@ export class HomeComponent implements OnInit {
       this.length = data['count']
       if (data['status'] == 200) {
         this.issues = response;
-        this.toastr.success(data['message']);
+        //this.toastr.success(data['message']);
       } else if (data['status'] == 404) {
         this.noIssue = true;
         this.toastr.warning(`${data['message']}. Please add issues`);
@@ -219,24 +226,40 @@ export class HomeComponent implements OnInit {
   // Sorting function
   sortBy(type: string) {
     if (type == "title") {
+      this.sortArrow1 = !this.sortArrow1;
+      this.sortArrow2 = false;
+      this.sortArrow3 = false;
+      this.sortArrow4 = false;
       if (this.sort == "title.1") {
         this.sort = 'title.-1'
       } else {
         this.sort = 'title.1'
       }
     } else if (type == "reporter") {
+      this.sortArrow2 = !this.sortArrow2;
+      this.sortArrow1 = false;
+      this.sortArrow3 = false;
+      this.sortArrow4 = false;
       if (this.sort == "reporter.1") {
         this.sort = 'reporter.-1'
       } else {
         this.sort = 'reporter.1'
       }
     } else if (type == "status") {
+      this.sortArrow3 = !this.sortArrow3;
+      this.sortArrow1 = false;
+      this.sortArrow2 = false;
+      this.sortArrow4 = false;
       if (this.sort == "status.1") {
         this.sort = 'status.-1'
       } else {
         this.sort = 'status.1'
       }
     } else {
+      this.sortArrow4 = !this.sortArrow4;
+      this.sortArrow1 = false;
+      this.sortArrow2 = false;
+      this.sortArrow3 = false;
       if (this.sort == "createdOn.1") {
         this.sort = 'createdOn.-1'
       } else {

@@ -21,6 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { IssueModule } from './issue/issue.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 let config = new AuthServiceConfig([
@@ -55,7 +56,8 @@ export function provideConfig() {
     ReactiveFormsModule,
     SocialLoginModule,
     FontAwesomeModule,
-    RichTextEditorAllModule
+    RichTextEditorAllModule,
+    ToastrModule.forRoot({ preventDuplicates: true, timeOut: 4000 })
   ],
   exports: [],
   providers: [
