@@ -7,7 +7,7 @@ import { SocketService } from '../../socket.service';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { HttpEventType } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { faCaretSquareLeft, faPowerOff, faEye, faImage, faComment, faArchive, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faReply, faEye, faImage, faComment, faArchive, faPlus, faTrashAlt, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-description',
@@ -60,14 +60,14 @@ export class DescriptionComponent implements OnInit {
   disconnectedSocket: boolean;
   authToken: string;
 
-  faCaretSquareLeft = faCaretSquareLeft;
-  faPowerOff = faPowerOff;
+  faReply = faReply;
   faEye = faEye;
   faImage = faImage;
   faComment = faComment;
   faArchive = faArchive;
   faPlus = faPlus;
   faTrashAlt = faTrashAlt;
+  faDownload = faDownload;
 
   constructor(
     public SocketService: SocketService,
@@ -129,7 +129,7 @@ export class DescriptionComponent implements OnInit {
 
 
   public check = () => {
-    console.log('check is running');
+    // console.log('check is running');
     if (!this.appService.getUserInfoFromLocalstorage()) {
 
       Cookie.delete('authtoken');
@@ -148,7 +148,7 @@ export class DescriptionComponent implements OnInit {
   public isLoggedOut = () => {
     this.time = setInterval(() => {
       this.check();
-    }, 500);
+    }, 3000);
   }//end IsLoggedOut
 
   // check to for validity
@@ -219,7 +219,7 @@ export class DescriptionComponent implements OnInit {
 
         }
 
-        console.log('UserList>>>>>', this.userList);
+        // console.log('UserList>>>>>', this.userList);
 
       }); // end online-user-list
   }
@@ -321,7 +321,6 @@ export class DescriptionComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.uploadStautus = true;
             this.progress = Math.round(event.loaded / event.total * 100);
-            //this.toastr.info(`Upload Progress : ${Math.round(event.loaded / event.total * 100)}%`);
           } else if (event.type === HttpEventType.Response) {
             if (event.body['status'] === 200) {
               this.toastr.success(`${event.body['message']}.`);
@@ -371,7 +370,6 @@ export class DescriptionComponent implements OnInit {
         this.appService.editIssue(data).subscribe(event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(event.loaded / event.total * 100)
-            this.toastr.info(`Upload Progress : ${Math.round(event.loaded / event.total * 100)}%`);
           } else if (event.type === HttpEventType.Response) {
             if (event.body['status'] === 200) {
               this.toastr.success(`${event.body['message']}.`);

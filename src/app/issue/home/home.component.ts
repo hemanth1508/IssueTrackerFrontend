@@ -47,10 +47,6 @@ export class HomeComponent implements OnInit {
   noIssue: boolean;
 
   //font-awesome
-  faBars = faBars;
-  faBell = faBell;
-  faClipboardList = faClipboardList;
-  faHome = faHome;
   faPowerOff = faPowerOff;
   faCaretUp = faCaretUp;
   faCaretDown = faCaretDown;
@@ -105,7 +101,7 @@ export class HomeComponent implements OnInit {
   public isLoggedOut = () => {
     this.time = setInterval(() => {
       this.check();
-    }, 2000);
+    }, 3000);
   }//end IsLoggedOut
 
   // check to for validity
@@ -128,7 +124,6 @@ export class HomeComponent implements OnInit {
   }
 
   public logout: any = () => {
-    //this.userId = this.appService.getUserInfoFromLocalstorage().userId
     this.appService.logout(this.userId)
       .subscribe((apiResponse) => {
         if (apiResponse.status === 200) {
@@ -144,7 +139,6 @@ export class HomeComponent implements OnInit {
           }, 2000);
         } else {
           this.toastr.info(apiResponse.message);
-          // Cookie.delete('authtoken');
           setTimeout(() => {
             this.router.navigate(['/'])
           }, 500);
@@ -166,17 +160,17 @@ export class HomeComponent implements OnInit {
           let temp = { 'userId': userList[x].userId, 'name': userList[x].fullName };
           this.userList.push(temp);
         }
-        console.log('UserList =>', this.userList);
+        // console.log('UserList =>', this.userList);
       }); // end online-user-list
   }
   //page event
-  public getServerData(event?: PageEvent) {
+  public getServerData = (event?: PageEvent) => {
     this.pageEvent = event;
     this.getAllIssue(event.pageSize, event.pageIndex, this.sort)
     this.pageSize = event.pageSize
   }
   //search
-  search(e) {
+  public search = (e) => {
     this.cross = true;
     this.appService.searchIssue(this.searchText).subscribe(data => {
       let response = data['data']
@@ -200,7 +194,7 @@ export class HomeComponent implements OnInit {
     });
   }
   //get all issues
-  getAllIssue(pageSize, pageIndex, sort) {
+  public getAllIssue = (pageSize, pageIndex, sort) => {
     this.appService.getAllIssue(pageSize, pageIndex, sort).subscribe(data => {
       let response = data['data']
       this.length = data['count']
@@ -224,7 +218,7 @@ export class HomeComponent implements OnInit {
     });
   }
   // Sorting function
-  sortBy(type: string) {
+  public sortBy = (type: string) => {
     if (type == "title") {
       this.sortArrow1 = !this.sortArrow1;
       this.sortArrow2 = false;
@@ -296,66 +290,5 @@ export class HomeComponent implements OnInit {
     this.modalData = { issue };
     this.modal.open(this.modalContent, { size: 'xl' });
   }
-
-  // //code to get last 10 notification
-  // getNotification(id) {
-  //   this.notifications = [];
-  //   this.noNotify = false;
-  //   this.appService.getUserNotification(id).subscribe(
-  //     data => {
-  //       console.log(data);
-  //       if (data["status"] === 200) {
-  //         let response = data['data']
-  //         this.notifications = []
-  //         if (response != null) {
-  //           response.map(x => {
-  //             this.notifications.unshift(x);
-  //           });
-  //         }
-  //         console.log(this.notifications[0].message);
-  //       } else if (data["status"] === 404) {
-  //         this.noNotify = true;
-  //         //this.toastr.error(data["message"]);
-  //       } else {
-  //         this.toastr.error(`some error occured`);
-  //         setTimeout(() => {
-  //           this.router.navigate(['/500'])
-  //         }, 500);
-  //       }
-  //     }, (err) => {
-  //       this.toastr.error("some error occured");
-  //       setTimeout(() => {
-  //         this.router.navigate(['/500'])
-  //       }, 500);
-  //     });
-  // }
-
-  // // get notifications of the user
-  // public getNotify: any = () => {
-  //   // this.userId = this.appService.getUserInfoFromLocalstorage().userId
-  //   this.socket.notify(this.userId)
-  //     .subscribe((data) => {
-  //       // this.noNotify = false;
-  //       let message = data;
-  //       this.toastr.info(`${message.message}`);
-  //       this.notifications.unshift(message)
-  //       this.count++;
-  //     }, (err) => {
-  //       this.toastr.error(`some error occured`);
-  //       setTimeout(() => {
-  //         this.router.navigate(['/500'])
-  //       }, 500);
-  //     });//end subscribe
-  // }// end get message from a user 
-
-  // //clearNotify
-  // public clearNotify() {
-  //   this.count = null;
-  //   this.getNotification(this.userId)
-  // }
-
-  // public gotoDescription: any = () => {
-  //   this.router.navigate(['/description', 'add']);
-  // }
 
 }

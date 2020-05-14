@@ -1,18 +1,11 @@
 <div class="container">
-    <!-- <div class="row">
-        <div class="col-12">
-            <br><br>
-            <p></p>
-            <br>
-        </div>
-    </div> -->
     <div class="row">
         <div class="col-12">
             <br>
             <br><br>
             <h6 style="display: inline;">Welcome <b>{{userInfo.firstName | titlecase}}
                     {{userInfo.lastName | titlecase}}</b></h6>
-            <!-- <button class="btn btn-outline-info float-right rounded-pill" (click)="logout()">Logout</button> -->
+            <!-- <button class="btn btn-outline-success float-right rounded-pill" (click)="logout()">Logout</button> -->
             <br><br>
         </div>
     </div>
@@ -32,7 +25,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header head">
                             <h5 class="modal-title" id="exampleModalLabel">Delete Issue</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -42,7 +35,7 @@
                             <h6 style="color: red;"> Do you really want to permanently delete this issue?</h6>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Delete
                                 Issue</button>
                         </div>
@@ -51,7 +44,8 @@
             </div>
 
             <button title="back to previous page" class="btn btn-success back shadow" (click)="goBack()">
-                <fa-icon [icon]="faCaretSquareLeft" size="1x"></fa-icon> Back
+                <b>Back </b>
+                <fa-icon [icon]="faReply" size="1x"></fa-icon>
             </button>
             <hr><br>
         </div>
@@ -90,10 +84,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <a *ngIf="imageUrl && editMode" [href]="imageUrl" download><b>download image <fa-icon [icon]="faDownload"
+                        size="1x">
+                    </fa-icon></b></a>
             <input style="display:none" type="file" (change)=" onFileSelected($event)" #fileInput>
-            <button class="btn btn-primary shadow float-right" (click)="fileInput.click()">Add Image <fa-icon
-                    [icon]="faImage" size="1x">
-                </fa-icon></button>
+            <button class="btn btn-primary shadow float-right" (click)="fileInput.click()"><b>Add Image </b>
+                <fa-icon [icon]="faImage" size="1x">
+                </fa-icon>
+            </button>
             <br>
             <br>
         </div>
@@ -131,6 +129,9 @@
             <img class="mx-auto d-block shadow" style="border-radius: 15px;" *ngIf="imageUrl || selectFile"
                 [src]="imageUrl" width="50%" alt="">
             <hr>
+            <a *ngIf="imageUrl" [href]="imageUrl" download><b>download image <fa-icon [icon]="faDownload" size="1x">
+                    </fa-icon></b></a>
+            <br>
         </div>
         <br>
         <div class="col-12">
@@ -155,23 +156,29 @@
             </mat-form-field>
         </div>
         <div class="col-12">
+            <div class="alert alert-success inline" style="width: 50%;" *ngIf="uploadStautus" role="alert">
+                <div class="inline"><b>Issue is uploading...{{progress-2}}%<div
+                            class="spinner-border text-success inline" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div></b></div>
+            </div>
             <button class="btn btn-success shadow" title="save this issue"
                 *ngIf="!uploadStautus && !warning && assigneeArray.includes(userId) || userId == reporterId  || !editMode"
-                (click)="save()">Save <fa-icon [icon]="faArchive" size="1x"></fa-icon></button>
+                (click)="save()"><b>Save </b>
+                <fa-icon [icon]="faArchive" size="1x"></fa-icon>
+            </button>
             <button title="add assignee to this issue" class="btn btn-success shadow"
-                *ngIf="editMode && userId !== reporterId && !assigneeArray.includes(userId)" (click)="addAssignee()">Add
-                Assignee <fa-icon [icon]="faPlus" size="1x"></fa-icon></button>
+                *ngIf="editMode && userId !== reporterId && !assigneeArray.includes(userId)"
+                (click)="addAssignee()"><b>Add
+                    Assignee </b>
+                <fa-icon [icon]="faPlus" size="1x"></fa-icon>
+            </button>
             <button class="btn btn-info shadow"
                 *ngIf="userId !== reporterId && !watchee && !assigneeArray.includes(userId)" (click)="addWatchee()"
-                title="watch this issue" style="color: white; margin: 20px;">Watch <fa-icon [icon]="faEye" size="1x">
-                </fa-icon></button>
-            <!-- <mat-progress-spinner *ngIf="uploadStautus" class="example-margin" color="primary" mode="determinate"
-              diameter=40 [value]="progress">
-            </mat-progress-spinner> -->
-            <div class="alert alert-warning" *ngIf="uploadStautus" role="alert">
-                <p><b>Issue is uploading...</b></p>
-                <p>upload progress: {{progress-5}}</p>
-            </div>
+                title="watch this issue" style="color: white; margin: 20px;"><b>Watch </b>
+                <fa-icon [icon]="faEye" size="1x">
+                </fa-icon>
+            </button>
         </div>
     </div>
 
@@ -188,11 +195,12 @@
                 </div>
             </div>
             <div>
-                <textarea class="form-control shadow" style="width: 95%;" title="write your comment here"
+                <textarea class="form-control shadow" style="width: 90%;" title="write your comment here"
                     placeholder="Leave a comment" [(ngModel)]="comment"></textarea>
                 <br>
-                <button class="btn btn-primary shadow" title="submit comment" (click)="postComment()">Comment <fa-icon
-                        [icon]="faComment" size="1x"></fa-icon></button>
+                <button class="btn btn-primary shadow" title="submit comment" (click)="postComment()"><b>Comment </b>
+                    <fa-icon [icon]="faComment" size="1x"></fa-icon>
+                </button>
                 <br><br>
             </div>
         </div>

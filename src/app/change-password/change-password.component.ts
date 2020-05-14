@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { faKey, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-change-password',
@@ -15,6 +16,9 @@ export class ChangePasswordComponent implements OnInit {
   public userId: any;
   public pass1: any;
   public pass2: any;
+
+  faKey = faKey;
+  faSignInAlt = faSignInAlt;
 
   constructor(
     public appService: AppService,
@@ -36,7 +40,7 @@ export class ChangePasswordComponent implements OnInit {
 
   public validation: any = () => {
     if (this.pass1 === this.pass2) {
-      if (this.pass1.length >= 8) {
+      if (this.pass1 !== null && this.pass1 !== undefined && this.pass1.length >= 8) {
         return true;
       } else {
         this.toastr.warning(`Please make sure your password is more than 8 character`);

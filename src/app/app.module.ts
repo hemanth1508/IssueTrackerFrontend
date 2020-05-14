@@ -6,22 +6,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { SidebarComponent } from './issue/sidebar/sidebar.component';
 
-
-import { UserModule } from './user/user.module';
 import { AppService } from './app.service';
 import { SocketService } from './socket.service';
 
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { IssueModule } from './issue/issue.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 let config = new AuthServiceConfig([
@@ -43,12 +41,12 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     SidebarComponent,
-    SignInComponent
+    SignInComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserModule,
     IssueModule,
     BrowserAnimationsModule,
     FormsModule,

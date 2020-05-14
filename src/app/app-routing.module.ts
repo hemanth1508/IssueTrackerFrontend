@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,7 @@ const routes: Routes = [
     component: SignInComponent
   },
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: 'change-password/:userId', component: ChangePasswordComponent }
 ];
 
 @NgModule({

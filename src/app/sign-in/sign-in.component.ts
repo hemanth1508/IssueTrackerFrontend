@@ -5,6 +5,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SocketService } from 'src/app/socket.service';
+import { faSignInAlt, faUserPlus, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,7 +20,12 @@ export class SignInComponent implements OnInit, OnDestroy {
   public password: string;
   firstName: any;
   lastName: any;
-  // progress: boolean;
+  forgot: boolean = false;
+
+  faSignInAlt = faSignInAlt;
+  faUserPlus = faUserPlus;
+  faLock = faLock;
+  faEnvelope = faEnvelope;
 
   constructor(
     private authService: AuthService,
@@ -183,5 +189,43 @@ export class SignInComponent implements OnInit, OnDestroy {
     } else {
       this.toastr.warning("Please enter a valid Email and Password");
     } // check for email ends here
+  }
+
+  public goBackToLogin: any = () => {
+    this.signupForm = false;
+    this.forgot = false;
+  }
+
+  public goToSignup: any = () => {
+    this.signupForm = true;
+    this.forgot = false;
+  }
+
+  public submit: any = () => {
+
+    if (!this.email) {
+      this.toastr.warning("Please enter email");
+    } else {
+      let data = {
+        email: this.email
+      }
+      this.appService.forgotPasswordFunction(data)
+        .subscribe((apiResponse) => {
+          if (apiResponse.status === 200) {
+            this.toastr.success(apiResponse.message);
+            setTimeout(() => {
+              // this.router.navigate(['/sign-in']);
+              this.goBackToLogin();
+            }, 2000);
+          } else {
+            this.toastr.error(apiResponse.message);
+          }
+        }, (err) => {
+          this.toastr.error("some error occured. check your internet connection.");
+          setTimeout(() => {
+            this.router.navigate(['/500'])
+          }, 500);
+        });
+    }
   }
 }
