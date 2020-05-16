@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><b>Close</b></button>
+                <button type="button" class="btn btn-outline-light h" data-dismiss="modal"><b>Close</b></button>
             </div>
         </div>
     </div>
@@ -62,10 +62,38 @@
             </li>
 
             <li>
-                <!-- <button class="btn customBtn rounded-pill" style="cursor: pointer;" (click)="logout()">
-                    Logout <fa-icon [icon]="faPowerOff"></fa-icon>
-                </button> -->
+                <button class="btn btn-outline-light customBtn rounded-pill" [routerLink]="['profile']">
+                    <fa-icon [icon]="faUserCircle"></fa-icon> Profile
+                </button>
             </li>
         </ul>
+    </div>
+</nav>
+<nav class="navbar navbar-default fixed-bottom customNav d-block d-sm-none bg-light shadow">
+    <div class="row text-center">
+        <div class="col-3">
+            <button class="btn btn-outline-light customBtn rounded-circle" [routerLink]="['home']">
+                <fa-icon [icon]="faHome"></fa-icon>
+            </button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-outline-light customBtn rounded-circle" [routerLink]="['description/add']">
+                <!-- [class.activated]="currentUrl.split('/')[1] == 'description'" -->
+                <fa-icon [icon]="faClipboardList"></fa-icon>
+            </button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-outline-light customBtn rounded-circle" (click)="clearNotify()" data-toggle="modal"
+                data-target="#exampleModal">
+                <fa-icon [icon]="faBell" size="1x"></fa-icon><span>
+                </span><span class="badge badge-light" style="color: red;">{{count}}</span>
+            </button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-outline-light customBtn rounded-circle" [routerLink]="['profile']">
+                <!-- [class.activated]="currentUrl.split('/')[1] == 'description'" -->
+                <fa-icon [icon]="faUserCircle"></fa-icon>
+            </button>
+        </div>
     </div>
 </nav>

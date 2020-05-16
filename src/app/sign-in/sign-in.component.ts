@@ -109,7 +109,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       this.toastr.warning("enter last name");
     } else if (!this.email) {
       this.toastr.warning("enter email");
-    } else if (this.password.length < 8) {
+    } else if (!this.password || this.password.length < 8) {
       this.toastr.warning("Please make sure your password is more than 8 random characters");
     } else {
       // this.progress = true;
@@ -152,7 +152,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     // check for email
     if (this.email) {
       // check for password 
-      if (this.password.length >= 8) {
+      if (this.password && this.password.length >= 8) {
         let data = {
           email: this.email.toLowerCase(),
           password: this.password

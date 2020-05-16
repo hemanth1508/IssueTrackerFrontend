@@ -4,7 +4,7 @@ import { AppService } from '../app.service';
 import { SocketService } from '../socket.service';
 import { ToastrService } from 'ngx-toastr';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { faBars, faBell, faHome, faClipboardList, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faHome, faClipboardList, faPowerOff, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit {
   faClipboardList = faClipboardList;
   faHome = faHome;
   faPowerOff = faPowerOff;
+  faUserCircle = faUserCircle;
 
   constructor(public SocketService: SocketService,
     public toastr: ToastrService,

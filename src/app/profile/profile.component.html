@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-10 shadow" style="border: lightgrey 1px solid;border-radius: 15px;">
+            <div>
+                <h4 style="margin: 20px auto 20px auto; color:#3bb78f ; text-align: left;">Issue<span
+                        style="color: black;">tracker</span></h4>
+                <h5 style="text-align: center; color: #3bb78f;"><b>User Details</b></h5>
+                <br>
+            </div>
+
+            <div class="table-responsive" *ngIf="userInfo">
+                <table class="table mb-0 ">
+
+                    <tbody class="text-muted">
+
+                        <tr>
+                            <td>
+                                <h6><b>User Name </b></h6>
+                            </td>
+                            <td>
+                                <h6>{{this.userInfo.firstName}} {{this.userInfo.lastName}}</h6>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6><b>First Name </b></h6>
+                            </td>
+                            <td>
+                                <h6>{{this.userInfo.firstName}}</h6>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6><b>Last Name </b></h6>
+                            </td>
+                            <td>
+                                <h6>{{this.userInfo.lastName}}</h6>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h6><b>Email </b></h6>
+                            </td>
+                            <td>
+                                <h6>{{this.userInfo.email}}</h6>
+                            </td>
+                        </tr>
+
+                        <tr><br></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="!userInfo">
+                <p class="text-muted">Please login to view your details.</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="container-fluid" *ngIf="userInfo">
+    <div class="row">
+        <div class="col-12">
+            <br><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10 text-center shadow"
+            style="background-color: white; border-radius: 15px; border: lightgrey solid 1px;">
+            <br>
+            <h5 class="text-center" style="margin-top:2%; color:#3bb78f ;"> CHANGE PASSWORD</h5>
+            <br>
+            <p class="text-muted"><b>Enter same password in both fields.</b></p>
+            <br>
+            <div class="row">
+                <div class="col-0 col-md-2 col-lg-3">
+                </div>
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="form-group">
+                        <input type="password" id="pass1" [(ngModel)]="pass1" class="form-control rounded-pill shadow"
+                            required>
+                        <label class="form-control-placeholder" for="pass1">Enter new Password</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="pass2" [(ngModel)]="pass2" class="form-control rounded-pill shadow"
+                            required>
+                        <label class="form-control-placeholder" for="pass2">Re-enter new Password</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="form-group">
+                <input type="password" id="pass1" [(ngModel)]="pass1"
+                    class="form-control rounded-pill shadow" required autofocus>
+                <label class="form-control-placeholder" for="pass1">Enter new Password</label>
+            </div>
+            <div class="form-group">
+                <input type="password" id="pass2" [(ngModel)]="pass2" class="form-control rounded-pill shadow" required
+                    autofocus>
+                <label class="form-control-placeholder" for="pass2">Re-enter new Password</label>
+            </div> -->
+            <!-- <h6>Don't have account yet? <a [routerLink]="['/sign-up']">SignUp</a> </h6> -->
+            <br>
+            <button class="btn btn-outline-success cusBtn" (click)="changePasswordFunction()"><b>Change password </b>
+                <fa-icon [icon]="faKey" size="1x"></fa-icon>
+            </button>
+            <br><br>
+            <!-- <p [routerLink]="['']" style="color: #3bb78f; cursor: pointer;"><b>Back to Login </b>
+                <fa-icon [icon]="faSignInAlt" size="1x"></fa-icon>
+            </p> -->
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <br><br><br><br>
+        </div>
+    </div>
+</div>

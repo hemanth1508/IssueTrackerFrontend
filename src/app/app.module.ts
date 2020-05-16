@@ -20,6 +20,7 @@ import { IssueModule } from './issue/issue.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 let config = new AuthServiceConfig([
@@ -42,7 +43,8 @@ export function provideConfig() {
     AppComponent,
     SidebarComponent,
     SignInComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

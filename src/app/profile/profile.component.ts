@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from 'src/app/app.service';
+import { AppService } from '../app.service';
+import { faKey, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { faKey, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class ChangePasswordComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
-  statusBar: HTMLElement;
-
+  userInfo: any;
   public userId: any;
   public pass1: any;
   public pass2: any;
@@ -20,22 +19,14 @@ export class ChangePasswordComponent implements OnInit {
   faKey = faKey;
   faSignInAlt = faSignInAlt;
 
-  constructor(
-    public appService: AppService,
+  constructor(private appService: AppService,
     public router: Router,
     private _route: ActivatedRoute,
-    public toastr: ToastrService
-  ) {
-    this.statusBar = document.getElementById('zap');
-  }
+    public toastr: ToastrService) { }
 
-
-  ngOnInit() {
-    this.statusBar.style.display = 'none';
-  }
-
-  ngOnDestroy() {
-    this.statusBar.style.display = 'block';
+  ngOnInit(): void {
+    this.userInfo = this.appService.getUserInfoFromLocalstorage().userDetails;
+    this.userId = this.userInfo.userId;
   }
 
   public validation: any = () => {
@@ -53,20 +44,20 @@ export class ChangePasswordComponent implements OnInit {
 
   public changePasswordFunction: any = () => {
     if (this.validation()) {
-      let captureId = this._route.snapshot.paramMap.get("userId");
       let data = {
-        userId: captureId,
+        userId: this.userId,
         password: this.pass1
       }
       this.appService.changePasswordFunction(data)
         .subscribe((apiResponse) => {
           if (apiResponse.status === 200) {
-            this.toastr.success(apiResponse.message);
+            this.toastr.success('password updated successfully');
             setTimeout(() => {
-              this.router.navigate(['/sign-in']);
+              this.router.navigate(['/home']);
             }, 2000);
           } else {
-            this.toastr.error(apiResponse.message);
+            this.toastr.error('error occured while updating password');
+            console.log(apiResponse.message)
             setTimeout(() => {
               this.router.navigate(['/500']);
             }, 2000);
@@ -79,5 +70,6 @@ export class ChangePasswordComponent implements OnInit {
         });
     }
   }
+
 
 }
